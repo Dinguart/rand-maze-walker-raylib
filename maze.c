@@ -83,17 +83,14 @@ void random_walk(Vector2* start_pos, int *maze_complete, struct timespec* pre, s
     size_t valid_offset=0;
     Vector2 valid[4];
     memset(valid, 0, sizeof(valid));
-    printf("%d %d\n", (int)start_pos->x, (int)start_pos->y+1);
     if (start_pos->x-1 >= 0 && (maze[(int)start_pos->x-1][(int)start_pos->y] == PATH || maze[(int)start_pos->x-1][(int)start_pos->y] == END)) valid[valid_offset++]=(Vector2){start_pos->x-1, start_pos->y};
     if (start_pos->x+1 < MAZE_W && (maze[(int)start_pos->x+1][(int)start_pos->y] == PATH || maze[(int)start_pos->x+1][(int)start_pos->y] == END)) valid[valid_offset++]=(Vector2){start_pos->x+1, start_pos->y};
     if (start_pos->y-1 >= 0 && (maze[(int)start_pos->x][(int)start_pos->y-1] == PATH || maze[(int)start_pos->x][(int)start_pos->y-1] == END)) valid[valid_offset++]=(Vector2){start_pos->x, start_pos->y-1};
     if (start_pos->y+1 < MAZE_H && (maze[(int)start_pos->x][(int)start_pos->y+1] == PATH || maze[(int)start_pos->x][(int)start_pos->y+1] == END)) valid[valid_offset++]=(Vector2){start_pos->x, start_pos->y+1};
-    printf("%zu", valid_offset);
     if (valid_offset > 0) {
         *start_pos = valid[rand()%valid_offset];
         section = maze[(size_t)start_pos->x][(size_t)start_pos->y];
     }
-    printf("(%d, %d\n", (int)start_pos->x-1, (int)start_pos->y-1);
 }
 
 void draw_random_walk(const Vector2* start_pos) {
